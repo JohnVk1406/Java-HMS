@@ -13,8 +13,6 @@ public class RoomStatus extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
-        ImageIcon icon = new ImageIcon("HMSICON.png");
-        setIconImage(icon.getImage());
 
         // Connect to DB, get room id, room no, type, status from bookings db
         String[] headers = {"Room No", "Type", "Price", "Status"};

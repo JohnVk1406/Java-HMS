@@ -1,5 +1,6 @@
 import java.awt.Color;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,18 +8,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
-
+ 
 // The hotel system uses a passkey which identifies each hotel and access its services
 public class login{
     public static void main(String args [])
     {
         //The main login frame
         JFrame frame =new JFrame("Login");
+        ImageIcon icon = new ImageIcon("HMSICON.png");
+        frame.setIconImage(icon.getImage());
 
         JPanel Topbar=new JPanel();
         Topbar.setBounds(0,0,900,50);
         Topbar.setBackground(new Color(25, 25, 112));
         frame.add(Topbar);
+        
 
         JLabel title=new JLabel("Hotel Management System");
         title.setForeground(Color.WHITE);
@@ -60,7 +64,7 @@ public class login{
         loginButton.setFocusable(false);
         panel.add(loginButton);
         
-        JLabel footer= new JLabel("@2024 All rights reserved | Hotel Management System");
+        JLabel footer= new JLabel("@2025 All rights reserved | Hotel Management System");
         footer.setBounds(250, 600, 400, 30);
         footer.setForeground(Color.WHITE);
         frame.add(footer);
@@ -92,7 +96,11 @@ public class login{
                login.main(new String[]{});
             
         }
+        else{
+            frame.dispose();
+        }
             }
+        
 
        });
     

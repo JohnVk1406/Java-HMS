@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import model.Amenity;
+import util.ResponseUtils;
 
 public class AmenityDAO {
 
@@ -31,11 +32,13 @@ public class AmenityDAO {
             while (rs.next()) {
                 Amenity amenity = new Amenity(rs.getInt("capacity"));
                 amenity.setId(rs.getLong("id"));
+                System.out.println("Type of amenity: " + amenity.getCapacity());
                 amenities.add(amenity);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        System.out.println("Amenities fetched from DB: " + amenities);
         return amenities;
     }
 

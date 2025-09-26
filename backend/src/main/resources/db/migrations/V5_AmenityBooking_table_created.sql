@@ -1,4 +1,4 @@
-CREATE TABLE amenity_bookings (
+CREATE TABLE IF NOT EXISTS amenity_bookings (
     id SERIAL PRIMARY KEY,
     amenity_id BIGINT NOT NULL,
     start_time TIMESTAMP NOT NULL,

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.List;
 import dto.ResponseDTO;
 import model.User;
+import model.Amenity;
+import model.AmenityBooking;
 import model.Payment;
 
 public class ResponseUtils {
@@ -90,6 +92,22 @@ public class ResponseUtils {
             return "{"
                     + "\"status\":" + r.getStatus() + ","
                     + "\"body\":" + convertToJson(r.getBody())
+                    + "}";
+        }
+        if(obj instanceof Amenity){
+            Amenity a = (Amenity) obj;
+            return "{"
+                    + "\"id\":" + a.getId() + ","
+                    + "\"capacity\":" + a.getCapacity()
+                    + "}";
+        }
+        if(obj instanceof AmenityBooking){
+            AmenityBooking ab = (AmenityBooking) obj;
+            return "{"
+                    + "\"id\":" + ab.getId() + ","
+                    + "\"amenityId\":" + ab.getAmenityId() + ","
+                    + "\"startTime\":\"" + ab.getStartTime() + "\","
+                    + "\"endTime\":\"" + ab.getEndTime() + "\","
                     + "}";
         }
 

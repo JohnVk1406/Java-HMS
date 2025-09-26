@@ -64,6 +64,7 @@ public class AmenityController {
     public void displayAllAmenities(HttpExchange exchange) throws IOException {
         try (Connection conn = Utils.getConnection()) {
             List<Amenity> amenities = amenityService.getAllAmenities(conn);
+            System.out.println("Retrieved Amenities: " + amenities);
             ResponseDTO response = new ResponseDTO(200, amenities);
             ResponseUtils.sendResponse(exchange, response);
         } catch (SQLException e) {
@@ -93,6 +94,7 @@ public class AmenityController {
         }
         br.close();
         String requestBody = buf.toString();
+        System.out.println("Request Body: " + requestBody);
 
         String typeStr = HelperUtils.extractJsonValue(requestBody, "type");
         if (typeStr == null) {

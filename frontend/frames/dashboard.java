@@ -9,6 +9,8 @@ public class dashboard {
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
+        ImageIcon icon = new ImageIcon("HMSICON.png");
+        frame.setIconImage(icon.getImage());
 
         JPanel navbar = new JPanel();
         navbar.setBounds(0, 0, 1000, 100);
@@ -120,7 +122,7 @@ public class dashboard {
     dateTimeLabel.setBounds(460, 465, 400, 30);
     frame.add(dateTimeLabel);
   
-        JLabel footer= new JLabel("@2024 All rights reserved | Hotel Management System");
+        JLabel footer= new JLabel("@2025 All rights reserved | Hotel Management System");
         footer.setBounds(450, 650, 400, 30);
         footer.setForeground(Color.DARK_GRAY);
         frame.add(footer);

@@ -11,6 +11,8 @@ public class restaurant_reservation {
             frame.setLayout(null);
             frame.setLocationRelativeTo(null);
             frame.setResizable(false);
+            ImageIcon icon = new ImageIcon("HMSICON.png");
+        frame.setIconImage(icon.getImage());
 
             JLabel label = new JLabel("Restaurant Reservation ");
             label.setBounds(150, 30, 300, 30);
@@ -48,7 +50,7 @@ public class restaurant_reservation {
             guestsSpinner.setBounds(200, 200, 150, 30);
             panel.add(guestsSpinner);
             JButton submitButton = new JButton("Submit");
-            submitButton.setBounds(200, 300, 100, 30);
+            submitButton.setBounds(200, 280, 100, 30);
             panel.add(submitButton);
             submitButton.addActionListener(e -> {
                 String name = nameField.getText().trim();
@@ -83,6 +85,14 @@ public class restaurant_reservation {
                         "Reservation made for " + name + " on " + date + " at " + time + " for " + guests + " guests.",
                         "Reservation Confirmed", JOptionPane.INFORMATION_MESSAGE);
                 }
+            });
+
+            JButton chartButton = new JButton("View Reservation Chart");
+            chartButton.setBounds(150, 350, 200, 30);
+            panel.add(chartButton);
+            chartButton.addActionListener(e -> {
+                restaurant_chart.main(new String[]{});
+                
             });
 
             frame.setVisible(true);
