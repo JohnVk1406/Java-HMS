@@ -56,7 +56,7 @@ private JTextField guestNameField, emailField, phoneNoField;
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(e -> {
             dispose();
-            BookingFrame.main(new String[]{});
+            new BookingFrame().setVisible(true);
         });
 
         buttonPanel.add(registerButton);

@@ -1,11 +1,10 @@
-package frames;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class RoomStatus extends JFrame {
 
-    private JTable roomTable;
+    private JTable roomTable; 
 
     public RoomStatus() {
         setTitle("Room Status - Today");
