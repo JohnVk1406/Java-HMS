@@ -1,9 +1,9 @@
-
-
+package frames;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
+//import http.HttpClient;
+//import org.json.*;
 
 public class BookingFrame extends JFrame {
 
@@ -27,6 +27,15 @@ public class BookingFrame extends JFrame {
         //Bookinf ID = XYZH + table id (3 digits)
         //Guest name from user id and users table
         //Room number from room table
+        //for the time being printing the users
+       /* JSONObject res = HttpClient.sendGet("/Users");
+        if (res != null) {
+            JSONArray bookings = res.getJSONArray("body");
+            for (int i = 0; i < bookings.length(); i++) {
+                JSONObject booking = bookings.getJSONObject(i);
+                System.out.println("Guest: " + booking.getString("username"));
+            }
+        }*/
 
         DefaultTableModel model = new DefaultTableModel(data, columns) {
         @Override
