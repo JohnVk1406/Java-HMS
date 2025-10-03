@@ -1,11 +1,14 @@
+package frames;
+import java.util.List;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-//import http.HttpClient;
-//import org.json.*;
+import java.sql.Connection;
 import model.User;
 import dao.UserDAO;
-import util;
+import util.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class BookingFrame extends JFrame {
 
@@ -20,16 +23,29 @@ public class BookingFrame extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setResizable(false);
-        ImageIcon icon = new ImageIcon("HMSICON.png");
+        ImageIcon icon = new ImageIcon("assets/HMSICON.png");
         setIconImage(icon.getImage());
 
         // Table Coloumns
         String[] columns = {"Booking ID", "Guest", "Room", "Check In", "Check Out", "Status"};
-        Object data[][] = {{"XYZH001", "Sarath", 101, "2025-09-06", "2025-09-10", "Active"}, {"XYZH002", "Jonas", 202, "2025-09-07", "2025-09-09", "Cancelled"}}; // Dummy data for testing purposes -- Need to connect DB 
+        Object data[][] = {{"XYZH001", "Sarath", 101, "06/09/2025", "10/09/2025", "Active"}, {"XYZH002", "Jonas", 202, "2025-09-07", "2025-09-09", "Cancelled"}}; // Dummy data for testing purposes -- Need to connect DB 
         //Bookinf ID = XYZH + table id (3 digits)
         //Guest name from user id and users table
         //Room number from room table
         //for the time being printing the users
+
+        /* try(Connection conn = util.Utils.getConnection()){
+            UserDAO ud = new UserDAO();
+            List<User> users = ud.findAll(conn);
+            for (User user : users) {
+                System.out.println(user);
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        } */
+
 
         DefaultTableModel model = new DefaultTableModel(data, columns) {
         @Override
@@ -90,7 +106,7 @@ public class BookingFrame extends JFrame {
         JOptionPane optionPane = new JOptionPane(
             new Object[] {
                 "Extend booking ID: " + bookingId,
-                "Enter new checkout date (YYYY-MM-DD):", newDateField
+                "Enter new checkout date (DD/MM/YYYY):", newDateField
             },
             JOptionPane.QUESTION_MESSAGE,
             JOptionPane.OK_CANCEL_OPTION);
@@ -101,16 +117,39 @@ public class BookingFrame extends JFrame {
         dialog.setVisible(true);
         Object selectedValue = optionPane.getValue();
             if (selectedValue != null && (int) selectedValue == JOptionPane.OK_OPTION) {
+                StringBuilder errorMsg = new StringBuilder();
+                String checkIn = bookingTable.getValueAt(bookingTable.getSelectedRow(), 3).toString();
+                String checkOut = bookingTable.getValueAt(bookingTable.getSelectedRow(), 4).toString();
                 String newDate = newDateField.getText().trim();
+                if (newDate.isEmpty()) errorMsg.append("- New date is required.\n");
+                java.time.LocalDate checkInDate = null, checkOutDate = null, newCheckOutDate = null;
+                try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        checkInDate = java.time.LocalDate.parse(checkIn, formatter);
+                        checkOutDate = java.time.LocalDate.parse(checkOut, formatter);
+                        newCheckOutDate = java.time.LocalDate.parse(newDate, formatter);
+                        java.time.LocalDate now = java.time.LocalDate.now();
+                        if (!newCheckOutDate.isAfter(checkOutDate)) {
+                            errorMsg.append("- New date cannot be before current check-out date.\n");
+                        }
+                    } catch (Exception ex) {
+                        errorMsg.append("- Invalid date format. Use DD/MM/YYYY for date.\n");
+                        System.out.println(ex.getMessage());
+                    }
+                if (errorMsg.length() > 0) {
+                    centeringDialog(errorMsg.toString(), "Alert");
+                    return;
+                }
+                else {
+                    JOptionPane infoPane = new JOptionPane(
+                            "Booking ID " + bookingId + " has been extended to " + newDate,
+                            JOptionPane.INFORMATION_MESSAGE);
 
-                JOptionPane infoPane = new JOptionPane(
-                        "Booking ID " + bookingId + " has been extended to " + newDate,
-                        JOptionPane.INFORMATION_MESSAGE);
-
-                JDialog infoDialog = infoPane.createDialog(parent, "Extended");
-                infoDialog.setSize(450, 200);
-                infoDialog.setLocationRelativeTo(parent);
-                infoDialog.setVisible(true);
+                    JDialog infoDialog = infoPane.createDialog(parent, "Extended");
+                    infoDialog.setSize(450, 200);
+                    infoDialog.setLocationRelativeTo(parent);
+                    infoDialog.setVisible(true);
+                }
             }
     }
 
