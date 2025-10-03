@@ -52,8 +52,15 @@ public class PaymentService{
 	}
 
 	//Delete payment
-	public void deletePayment(Long id,Connection conn){
+	public Boolean deletePayment(Long id,Connection conn){
 		getById(id,conn);
-		paymentDAO.deletePayment(id,conn);
+		Boolean value = paymentDAO.deletePayment(id,conn);
+		if(value==true){
+			System.out.println("Payment deleted...");
+			return value;
+		}
+		else{
+			throw new RuntimeException("Error deleting payment");
+		}
 	}
 }

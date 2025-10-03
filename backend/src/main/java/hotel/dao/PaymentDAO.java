@@ -122,7 +122,7 @@ public class PaymentDAO{
 		}
 	}
 
-	public void deletePayment(Long id,Connection conn){
+	public boolean deletePayment(Long id,Connection conn){
 		String query = "DELETE FROM payment WHERE id = ?";
 
 		try(PreparedStatement stmt = conn.prepareStatement(query)){
@@ -132,7 +132,7 @@ public class PaymentDAO{
 
 			if(rowsAffected > 0){
 				System.out.println("Payment deleted successfully...");
-				return;
+				return true;
 			}
 			throw new RuntimeException("Error deleting payment...");
 		} catch(SQLException e){

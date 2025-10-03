@@ -53,9 +53,15 @@ public class UserService{
 	}
 
 	//Delete user
-	public void deleteUser(Long id,Connection conn){
+	public Boolean deleteUser(Long id,Connection conn){
 		getById(id,conn);
-		userDAO.delete(id,conn);
+		Boolean value = userDAO.delete(id,conn);
+		if(value==true){
+			System.out.println("User deleted...");
+			return value;
+		}
+		else
+			throw new RuntimeException("Error deleting user.");
 	}
 	
 }

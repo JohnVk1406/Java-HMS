@@ -150,7 +150,7 @@ public class UserDAO{
 		}
 	}
 
-	public void delete(long id,Connection conn){
+	public Boolean delete(long id,Connection conn){
 		String query = "DELETE FROM users WHERE id = ?";
 
 		try(PreparedStatement stmt = conn.prepareStatement(query)){
@@ -160,7 +160,7 @@ public class UserDAO{
 
 			if(rowsAffected>0){
 				System.out.println("User deleted...");
-				return;
+				return true;
 			}
 			else{
 				System.out.println("Error deleting user");

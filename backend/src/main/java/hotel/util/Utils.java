@@ -11,15 +11,10 @@ public class Utils{
     private static final String password = "postgres";
 
     public static Connection getConnection() throws SQLException{
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new SQLException("PostgreSQL JDBC Driver not found. Please add it to your classpath.", e);
-        }
         return DriverManager.getConnection(url,user,password);
     }
 
-    public static void connectionHealth(){
+/*    public static void connectionHealth(){
         try(Connection conn = getConnection()){  //try with resource
             if(conn!=null && !conn.isClosed()){
                 System.out.println("DB connection establised successfully!");
@@ -31,8 +26,9 @@ public class Utils{
             System.out.println(e.getMessage());
         }
     }
+*/
 
-    public static Map<String, String> queryToMap(String query) {
+/*    public static Map<String, String> queryToMap(String query) {
 	Map<String, String> result = new HashMap<>();
 	if(query == null || query.isEmpty()) return result;
 	for (String param : query.split("&")) {
@@ -45,10 +41,11 @@ public class Utils{
     	}
     	return result;
 	}
+*/
 
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
             Utils.connectionHealth();
         }
-
+*/
 } 
